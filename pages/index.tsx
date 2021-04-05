@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from "react";
-import { getPosts } from "../../actions/get-posts";
-import { PostContainer } from "../../components/post-container";
+import { getPosts } from "../actions/get-posts";
+import { PostContainer } from "../components/post-container";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 interface HomePageProps {}
-export const HomePage: FC<HomePageProps> = () => {
+const HomePage: FC<HomePageProps> = () => {
   const [posts, setAllPosts] = useState<Array<object>>([]);
   const history = useHistory();
   const fetchPosts = async () => {
@@ -35,3 +35,5 @@ export const HomePage: FC<HomePageProps> = () => {
     </Container>
   );
 };
+
+export default HomePage;

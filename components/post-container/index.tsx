@@ -1,6 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { useRouter } from 'next/router'
 
 interface PostContainerProps {
   title: string;
@@ -10,6 +11,8 @@ interface PostContainerProps {
 
 export const PostContainer: FC<PostContainerProps> = ({ title, body, id }) => {
     const history = useHistory();
+    const router = useRouter();
+
   const Container = styled.div`
     height: 300px;
     background: #c0c0c0;
@@ -36,10 +39,11 @@ export const PostContainer: FC<PostContainerProps> = ({ title, body, id }) => {
   `;
 
   const TitleText = styled.span``;
+  console.log(router)
   return (
     <Container
     as="button"
-    onClick={()=>history.push("/posts/:postId")}
+    onClick={()=>router.push("/view-post-page")}
     >
       <Text size="23px">{title}</Text>
       <Separator />

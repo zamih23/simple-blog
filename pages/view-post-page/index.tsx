@@ -1,8 +1,10 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { useRouter } from 'next/router'
 interface ViewPostProps {}
 
-export const ViewPost: FC<ViewPostProps> = () => {
+ const ViewPost: FC<ViewPostProps> = () => {
+   const router = useRouter();
   const Container = styled.div`
     display: flex;
     fles-direction: column;
@@ -43,8 +45,10 @@ export const ViewPost: FC<ViewPostProps> = () => {
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum."
         </Text>
-        <Button>Go Back</Button>
+        <Button onClick={() => router.back() }>Go Back</Button>
       </div>
     </Container>
   );
 };
+
+export default ViewPost;
