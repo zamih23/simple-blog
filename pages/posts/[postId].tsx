@@ -1,11 +1,19 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 interface ViewPostProps {}
 
- const ViewPost: FC<ViewPostProps> = () => {
-   const router = useRouter();
-   const {postId} = router.query;
+const ViewPost: FC<ViewPostProps> = () => {
+  const router = useRouter();
+  const data = useSelector((state) => state.posts);
+  const { postId } = router.query;
+  const [post, setPost] = useState({});
+
+  useEffect(() => {
+    setPost(data.find((post) => post.id.toString() === postId));
+  }, []);
+
   const Container = styled.div`
     display: flex;
     fles-direction: column;
@@ -25,9 +33,10 @@ interface ViewPostProps {}
   const Button = styled.button`
     width: 100px;
     height: 35px;
-    margin: 10px
+    margin: 10px;
   `;
-  console.log(postId)
+  console.log(data, "data");
+  console.log(post);
   return (
     <Container>
       <div
@@ -37,17 +46,9 @@ interface ViewPostProps {}
           alignItems: "center",
         }}
       >
-        <h2>title</h2>
-        <Text>
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum."
-        </Text>
-        <Button onClick={() => router.back() }>Go Back</Button>
+        <h2>{post.title}</h2>
+        <Text>{post.body}</Text>
+        <Button onClick={() => router.back()}>Go Back</Button>
       </div>
     </Container>
   );

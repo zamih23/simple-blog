@@ -41,7 +41,6 @@ export const PostContainer: FC<PostContainerProps> = ({ title, body, id }) => {
   `;
 
   const TitleText = styled.span``;
-  console.log(router)
   return (
     <Container
     as="button"

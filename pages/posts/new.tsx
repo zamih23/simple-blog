@@ -52,8 +52,6 @@ const CreatePost: FC<CreatePostProps> = () => {
     height: 35px;
     margin: 10px;
   `;
-  console.log({ title });
-  console.log({ body });
 
   const handleClickSubmit = () => createPost();
   return (
