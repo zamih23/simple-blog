@@ -1,20 +1,25 @@
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
-import styled from "styled-components";
 import { createNewPost } from "../../actions/create-post";
+import {
+  Container,
+  TitleInput,
+  BodyInput,
+  Button,
+} from "../../styles/new-post-styles";
 
 interface CreatePostProps {}
 
 const CreatePost: FC<CreatePostProps> = () => {
-    const router = useRouter();
+  const router = useRouter();
   const [title, setTitle] = useState<string>("");
   const [body, setBody] = useState<string>("");
-
   const [titleFocus, setTitleFocus] = useState<boolean>(false);
   const [bodyFocus, setBodyFocus] = useState<boolean>(false);
 
   const createPost = async () => {
     await createNewPost(title, body);
+    router.back();
   };
 
   const toggleFocus = (type: string) => {
@@ -27,49 +32,30 @@ const CreatePost: FC<CreatePostProps> = () => {
     }
   };
 
-  const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  `;
-
-  const TitleInput = styled.input`
-    height: 30px;
-    width: 600px;
-    font-size: 15px;
-    margin: 10px;
-  `;
-  const BodyInput = styled.textarea`
-    resize: none;
-    width: 600px;
-    height: 400px;
-    font-size: 15px;
-    margin-bottom: 10px;
-  `;
-  const Button = styled.button`
-    width: 100px;
-    height: 35px;
-    margin: 10px;
-  `;
+  const handleBodyChange = (event) => {
+    setBody(event.target.value);
+  };
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
 
   const handleClickSubmit = () => createPost();
+
   return (
     <Container>
       <h2>Create new post</h2>
       <TitleInput
         onClick={() => toggleFocus("title")}
         placeholder="Name your post"
-        onChange={(event) => setTitle(event.target.value)}
+        onChange={handleTitleChange}
         value={title}
         autoFocus={titleFocus}
       />
       <BodyInput
         onClick={() => toggleFocus("body")}
         placeholder="What happened?"
-        cols="140"
-        rows="75"
-        onChange={(event) => setBody(event.target.value)}
+        onChange={handleBodyChange}
+        autoFocus={bodyFocus}
         value={body}
       />
       <div>
