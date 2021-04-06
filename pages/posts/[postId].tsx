@@ -5,6 +5,7 @@ interface ViewPostProps {}
 
  const ViewPost: FC<ViewPostProps> = () => {
    const router = useRouter();
+   const {postId} = router.query;
   const Container = styled.div`
     display: flex;
     fles-direction: column;
@@ -26,6 +27,7 @@ interface ViewPostProps {}
     height: 35px;
     margin: 10px
   `;
+  console.log(postId)
   return (
     <Container>
       <div

@@ -2,6 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useRouter } from 'next/router'
+import { url } from "node:inspector";
 
 interface PostContainerProps {
   title: string;
@@ -14,7 +15,8 @@ export const PostContainer: FC<PostContainerProps> = ({ title, body, id }) => {
     const router = useRouter();
 
   const Container = styled.div`
-    height: 300px;
+    min-height: 200px;
+    min-width: 90%;
     background: #c0c0c0;
     flex: 0.2;
     margin: 15px;
@@ -33,7 +35,7 @@ export const PostContainer: FC<PostContainerProps> = ({ title, body, id }) => {
     text-overflow: ellipsis;
     display: -webkit-box;
     text-align: center;
-    -webkit-line-clamp: 10; 
+    -webkit-line-clamp: 5; 
     -webkit-box-orient: vertical;
     font-size: ${(props) => props.size};
   `;
@@ -43,7 +45,7 @@ export const PostContainer: FC<PostContainerProps> = ({ title, body, id }) => {
   return (
     <Container
     as="button"
-    onClick={()=>router.push("/view-post-page")}
+    onClick={()=>router.push({pathname: "/posts/[postId]", query: {postId: id}} )}
     >
       <Text size="23px">{title}</Text>
       <Separator />
